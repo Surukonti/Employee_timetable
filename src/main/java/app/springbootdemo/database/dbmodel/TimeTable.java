@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "Time_Table")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="timeType",
+@DiscriminatorColumn(name="time_type",
         discriminatorType=DiscriminatorType.STRING)
 
 public class TimeTable {

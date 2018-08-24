@@ -12,7 +12,6 @@ public class EmployeeBOMapper {
     public static EmployeeBO from(EmployeeView employeeView) {
 
         EmployeeBO empBO = new EmployeeBO();
-
         empBO.setFirstName(employeeView.getFirstName());
         empBO.setLastName(employeeView.getLastName());
         empBO.setId(employeeView.getId());
@@ -25,7 +24,6 @@ public class EmployeeBOMapper {
     public static EmployeeBO from(Employee employee) {
 
         EmployeeBO empBO = new EmployeeBO();
-
         empBO.setFirstName(employee.getFirstName());
         empBO.setLastName(employee.getLastName());
         empBO.setId(employee.getId());

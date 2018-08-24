@@ -37,8 +37,7 @@ public class EmployeeController {
 	public EmployeeView postEmployee(@RequestBody EmployeeView employeeView) {
 		EmployeeBO employeeBO = EmployeeBOMapper.from(employeeView);
 		employeeBO = employeeService.postEmployee(employeeBO);
-
-		EmployeeView employeeView1 =EmployeeViewMapper.from(employeeBO);
+		EmployeeView employeeView1 = EmployeeViewMapper.from(employeeBO);
 
 		return employeeView1;
 	}

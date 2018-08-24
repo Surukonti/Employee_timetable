@@ -23,7 +23,6 @@ public class TimeTableBOMapper {
         timeTableBO.setEnd_break(timeTable.getEnd_break());
         timeTableBO.setEnd(timeTable.getEnd());
         timeTableBO.setId(timeTable.getId());
-
         return timeTableBO;
     }
 }

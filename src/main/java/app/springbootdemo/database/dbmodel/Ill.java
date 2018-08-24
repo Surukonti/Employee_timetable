@@ -8,8 +8,4 @@ import javax.persistence.Entity;
 public class Ill extends TimeTable {
 
 
-
-
-
-
 }
