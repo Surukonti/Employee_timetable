@@ -9,6 +9,8 @@ import app.springbootdemo.database.mapper.EmployeeMapper;
 import app.springbootdemo.database.mapper.HoliDayMapper;
 import app.springbootdemo.database.mapper.IllMapper;
 import app.springbootdemo.database.repository.EmployeeRepository;
+import app.springbootdemo.database.repository.HoliDayRepository;
+import app.springbootdemo.database.repository.IllRepository;
 import app.springbootdemo.database.repository.TimeTableRepository;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
 import app.springbootdemo.service.model.EmployeeBO;
@@ -26,12 +28,22 @@ import java.util.*;
 @Service
 public class EmployeeService {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+
+    final EmployeeRepository employeeRepository;
+
+    final TimeTableRepository timeTableRepository;
+
+    final HoliDayRepository holiDayRepository;
+
+    final IllRepository illRepository;
 
     @Autowired
-    TimeTableRepository timeTableRepository;
-
+    public EmployeeService(EmployeeRepository employeeRepository, TimeTableRepository timeTableRepository, HoliDayRepository holiDayRepository, IllRepository illRepository) {
+        this.employeeRepository = employeeRepository;
+        this.timeTableRepository = timeTableRepository;
+        this.holiDayRepository = holiDayRepository;
+        this.illRepository = illRepository;
+    }
 
     public List<Employee> getAll() {
         List<Employee> list = new ArrayList<>();
@@ -56,7 +68,7 @@ public class EmployeeService {
 
         //emp.getTimeTable().add(IllMapper.from(startTime, endTime, begin_Break, end_Break));
 
-        TimeTable ill = new TimeTable();
+        Ill ill = new Ill();
         ill.setEmployee(emp);
         ill.setBegin(startDate);
         ill.setEnd(endDate);
@@ -66,7 +78,7 @@ public class EmployeeService {
         //System.out.println("/////////////////////////////////////////   " + timeTable.getEmployee().getId());
 
         emp.getTimeTable().add(ill);
-        timeTableRepository.save(ill);
+        illRepository.save(ill);
     }
 
 
@@ -81,7 +93,7 @@ public class EmployeeService {
 
         Employee emp = employeeRepository.findById((holiDayBO.getId())).get();
 
-        TimeTable holiDay = new TimeTable();
+        HoliDay holiDay = new HoliDay();
         holiDay.setEmployee(emp);
         holiDay.setBegin(startDate);
         holiDay.setEnd(endDate);
@@ -89,7 +101,7 @@ public class EmployeeService {
         holiDay.setEnd_break(null);
 
         emp.getTimeTable().add(holiDay);
-        timeTableRepository.save(holiDay);
+        holiDayRepository.save(holiDay);
 
 
         }
