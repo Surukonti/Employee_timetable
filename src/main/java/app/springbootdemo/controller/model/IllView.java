@@ -8,7 +8,9 @@ public class IllView {
 
 
     private long empId;
+
     private Date illFromDate;
+
     private Date illToDate;
 
     public long getEmpId() {

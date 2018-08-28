@@ -6,23 +6,17 @@ import app.springbootdemo.database.dbmodel.HoliDay;
 import app.springbootdemo.database.dbmodel.Ill;
 import app.springbootdemo.database.dbmodel.TimeTable;
 import app.springbootdemo.database.mapper.EmployeeMapper;
-import app.springbootdemo.database.mapper.HoliDayMapper;
-import app.springbootdemo.database.mapper.IllMapper;
-import app.springbootdemo.database.repository.EmployeeRepository;
-import app.springbootdemo.database.repository.HoliDayRepository;
-import app.springbootdemo.database.repository.IllRepository;
-import app.springbootdemo.database.repository.TimeTableRepository;
+import app.springbootdemo.database.mapper.TelephoneMapper;
+import app.springbootdemo.database.repository.*;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
+import app.springbootdemo.service.mapper.TelephoneBOMapper;
 import app.springbootdemo.service.model.EmployeeBO;
 import app.springbootdemo.service.model.HoliDayBO;
 import app.springbootdemo.service.model.IllBO;
-import app.springbootdemo.service.model.TimeOffBO;
+import app.springbootdemo.service.model.TelephoneBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -37,12 +31,19 @@ public class EmployeeService {
 
     final IllRepository illRepository;
 
+    final TelephoneRepository telephoneRepository;
+
+    final AddressRepository addressRepository;
+
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, TimeTableRepository timeTableRepository, HoliDayRepository holiDayRepository, IllRepository illRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, TimeTableRepository timeTableRepository, HoliDayRepository holiDayRepository,
+                           IllRepository illRepository, TelephoneRepository telephoneRepository, AddressRepository addressRepository) {
         this.employeeRepository = employeeRepository;
         this.timeTableRepository = timeTableRepository;
         this.holiDayRepository = holiDayRepository;
         this.illRepository = illRepository;
+        this.telephoneRepository = telephoneRepository;
+        this.addressRepository = addressRepository;
     }
 
     public List<Employee> getAll() {
@@ -56,6 +57,13 @@ public class EmployeeService {
         EmployeeBO employeeBO1 = EmployeeBOMapper.from(employeeRepository.save(EmployeeMapper.from(employeeBO)));
         return employeeBO1;
     }
+
+   /* public void Telephone(TelephoneBO telephoneBO){
+     TelephoneBO telephoneBO1 = TelephoneBOMapper.from(telephoneRepository.save(TelephoneMapper.from(telephoneBO)));
+        Employee emp = employeeRepository.findById((telephoneBO.getEmpId())).get();
+        final S save = telephoneRepository.save(telephoneBO1);
+
+    }*/
 
 
     public void ill(IllBO illBO) {
@@ -102,8 +110,6 @@ public class EmployeeService {
 
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
-
-
         }
 
 
@@ -219,4 +225,8 @@ public class EmployeeService {
     }
 */
         }
-    }}
+    }
+
+    public void telephone(TelephoneBO from) {
+    }
+}
