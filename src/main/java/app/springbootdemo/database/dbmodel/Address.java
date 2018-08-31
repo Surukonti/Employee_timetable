@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
         private long id;
 
         @Column
-        @NotBlank
+        //@NotBlank
         private long postcode;
 
         @Column

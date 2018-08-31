@@ -14,7 +14,7 @@ public class Telephone {
     private long id;
 
     @Column
-    @NotBlank
+    //@NotBlank
     private long phone;
 
     @Column

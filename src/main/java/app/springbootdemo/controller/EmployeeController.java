@@ -2,16 +2,10 @@ package app.springbootdemo.controller;
 
 
 import app.springbootdemo.controller.mapper.EmployeeViewMapper;
-import app.springbootdemo.controller.model.EmployeeView;
-import app.springbootdemo.controller.model.HoliDayView;
-import app.springbootdemo.controller.model.IllView;
-import app.springbootdemo.controller.model.TelephoneView;
+import app.springbootdemo.controller.model.*;
 import app.springbootdemo.database.dbmodel.Employee;
 import app.springbootdemo.service.EmployeeService;
-import app.springbootdemo.service.mapper.EmployeeBOMapper;
-import app.springbootdemo.service.mapper.HoliDayBOMapper;
-import app.springbootdemo.service.mapper.IllBOMapper;
-import app.springbootdemo.service.mapper.TelephoneBOMapper;
+import app.springbootdemo.service.mapper.*;
 import app.springbootdemo.service.model.EmployeeBO;
 import app.springbootdemo.service.model.TelephoneBO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +32,6 @@ public class EmployeeController {
 		EmployeeBO employeeBO = EmployeeBOMapper.from(employeeView);
 		employeeBO = employeeService.postEmployee(employeeBO);
 		EmployeeView employeeView1 = EmployeeViewMapper.from(employeeBO);
-
 		return employeeView1;
 	}
 
@@ -54,12 +47,6 @@ public class EmployeeController {
 	public void holiDay(@RequestBody HoliDayView holiDayView) {
 		employeeService.holiDay(HoliDayBOMapper.from(holiDayView));
 	}
-
-	/*@PostMapping(value="/telephone" ,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public TelephoneView postTelephone(@RequestBody TelephoneView telephoneView) {
-		employeeService.telephone(TelephoneBOMapper.from(telephoneView));
-	     return telephoneView;}*/
-
 
 	@GetMapping(value="/findbylastname/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Employee> findByLastName(@PathVariable("lastName") String lastName) {
@@ -92,6 +79,19 @@ public class EmployeeController {
 		employeeService.stopBreakTime(id);
 	}
 
+
+
+	@PostMapping(value="/employee/address" ,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void addAddress(@RequestBody AddressView addressView) {
+		employeeService.addAddress(AddressBOMapper.from(addressView));
+	}
+
+	@PostMapping(value="/employee/telephone" ,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void addContactDetails(@RequestBody TelephoneView telephoneView) {
+		employeeService.addContactDetails(TelephoneBOMapper.from(telephoneView));
+	}
+
+
 	/*@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
 	public Employee findEmployeewithId(@PathVariable("id") long id) {
 		return employeeService.findEmployeewithId(id);
@@ -102,20 +102,5 @@ public class EmployeeController {
 	public void illStartTime(@PathVariable long id) {
 		employeeService.illStartTime(id);
 	}
-
-	@PostMapping(value="/employee/illEndTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void illEndTime(@PathVariable long id) {
-		employeeService.illEndTime(id);
-	}
-
-
-	@PostMapping(value="/employee/holidayStartTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void holidayStartTime(@PathVariable long id) {
-		employeeService.holidayStartTime(id);
-	}
-
-	@PostMapping(value="/employee/holidayEndTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void holidayEndTime(@PathVariable long id) {
-		employeeService.holidayEndTime(id);
-	}*/
+*/
 }

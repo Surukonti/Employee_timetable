@@ -1,19 +1,14 @@
 package app.springbootdemo.service;
 
 
-import app.springbootdemo.database.dbmodel.Employee;
-import app.springbootdemo.database.dbmodel.HoliDay;
-import app.springbootdemo.database.dbmodel.Ill;
-import app.springbootdemo.database.dbmodel.TimeTable;
+import app.springbootdemo.database.dbmodel.*;
 import app.springbootdemo.database.mapper.EmployeeMapper;
 import app.springbootdemo.database.mapper.TelephoneMapper;
 import app.springbootdemo.database.repository.*;
+import app.springbootdemo.exceptions.StartTimeAlreadyRecordedException;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
 import app.springbootdemo.service.mapper.TelephoneBOMapper;
-import app.springbootdemo.service.model.EmployeeBO;
-import app.springbootdemo.service.model.HoliDayBO;
-import app.springbootdemo.service.model.IllBO;
-import app.springbootdemo.service.model.TelephoneBO;
+import app.springbootdemo.service.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,59 +53,50 @@ public class EmployeeService {
         return employeeBO1;
     }
 
-   /* public void Telephone(TelephoneBO telephoneBO){
-     TelephoneBO telephoneBO1 = TelephoneBOMapper.from(telephoneRepository.save(TelephoneMapper.from(telephoneBO)));
+    public TelephoneBO phone(TelephoneBO telephoneBO){
         Employee emp = employeeRepository.findById((telephoneBO.getEmpId())).get();
-        final S save = telephoneRepository.save(telephoneBO1);
+        //emp.getId();
+        TelephoneBO telephoneBO1 = TelephoneBOMapper.from(telephoneRepository.save(TelephoneMapper.from(telephoneBO)));
+        return telephoneBO1;
 
-    }*/
+    }
 
 
     public void ill(IllBO illBO) {
-
         Date startDate = illBO.getIllFromDate();// + "8:00";
         Date endDate = illBO.getIllToDate();// + "16:00";
         Employee emp = employeeRepository.findById((illBO.getEmpId())).get();
-        System.out.println(emp.getFirstName());
-        System.out.println(emp.getId());
-
-        //emp.getTimeTable().add(IllMapper.from(startTime, endTime, begin_Break, end_Break));
-
         Ill ill = new Ill();
         ill.setEmployee(emp);
         ill.setBegin(startDate);
         ill.setEnd(endDate);
         ill.setBegin_break(null);
         ill.setEnd_break(null);
-
-        //System.out.println("/////////////////////////////////////////   " + timeTable.getEmployee().getId());
-
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
+
+
+        //System.out.println(emp.getFirstName());
+        //System.out.println(emp.getId());
+        //emp.getTimeTable().add(IllMapper.from(startTime, endTime, begin_Break, end_Break));
+        //System.out.println("/////////////////////////////////////////   " + timeTable.getEmployee().getId());
     }
 
 
     public void holiDay(HoliDayBO holiDayBO) {
-
         Date startDate = holiDayBO.getFromDate();
         Date endDate = holiDayBO.getToDate();// + "16:00";
-
-       // Date begin_Break = null;
-       // Date end_Break = null;
-
-
         Employee emp = employeeRepository.findById((holiDayBO.getId())).get();
-
         HoliDay holiDay = new HoliDay();
         holiDay.setEmployee(emp);
         holiDay.setBegin(startDate);
         holiDay.setEnd(endDate);
         holiDay.setBegin_break(null);
         holiDay.setEnd_break(null);
-
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
-        }
+
+    }
 
 
     public List<Employee> findByLastName(String lastName) {
@@ -127,8 +113,12 @@ public class EmployeeService {
     public void startTime(long pEmployeeId){
 
         Employee emp = employeeRepository.findById(pEmployeeId).get();
+        Set<TimeTable> lastTimeTable = timeTableRepository.findStartTimeforEmpId(pEmployeeId);
+        if(lastTimeTable.size()>=1) {
+            throw new StartTimeAlreadyRecordedException("Start time already logged");
+        }
         TimeTable lcWorkingDay = new TimeTable();
-       // lcWorkingDay.setId(emp.getId()); //new
+        // lcWorkingDay.setId(emp.getId()); //new
         lcWorkingDay.setEmployee(emp);   //new
         lcWorkingDay.setBegin(new Date());
         emp.getTimeTable().add(lcWorkingDay);
@@ -137,9 +127,7 @@ public class EmployeeService {
 
     }
 
-
     public void endTime(long pEmployeeId) {
-
         Employee emp = employeeRepository.findById(pEmployeeId).get();
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.findForCurrentTimeTableForEmployee(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
@@ -152,7 +140,6 @@ public class EmployeeService {
 
 
     public void startBreakTime(long pEmployeeId) {
-
         Employee emp = employeeRepository.findById(pEmployeeId).get();
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee1(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
@@ -163,8 +150,7 @@ public class EmployeeService {
     }
 
 
-
-        public void stopBreakTime(long pEmployeeId){
+    public void stopBreakTime(long pEmployeeId){
         Employee emp = employeeRepository.findById(pEmployeeId).get();
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee2(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
@@ -172,14 +158,6 @@ public class EmployeeService {
             currentTimeTable.setEnd_break(new Date());
             timeTableRepository.save(currentTimeTable);
 
-
-
-        /*TimeTable lcWorkingDay = new TimeTable();
-        lcWorkingDay.setId(emp.getId());
-        lcWorkingDay.setEmployee(emp);
-        lcWorkingDay.setEnd_break(new Date());
-        emp.getTimeTable().add(lcWorkingDay);
-        employeeRepository.save(emp);*/
 
 
    /* public void endTime(long pEmployeeId){
@@ -201,32 +179,28 @@ public class EmployeeService {
         return employee;
     }*/
 
-
-  /*  public void illStartTime(long pEmployeeId) {
-
-        Employee emp = employeeRepository.findById(pEmployeeId).get();
-        Ill lcWorkingDay = new Ill();
-        lcWorkingDay.setId(emp.getId());
-        lcWorkingDay.setEmployee(emp);
-        lcWorkingDay.setBegin(new Date());
-        emp.getTimeTable().add(lcWorkingDay);
-        employeeRepository.save(emp);
-    }
-
-    public void illEndTime(long pEmployeeId) {
-
-        Employee emp = employeeRepository.findById(pEmployeeId).get();
-        Ill lcWorkingDay = new Ill();
-        lcWorkingDay.setId(emp.getId());
-        lcWorkingDay.setEmployee(emp);
-        lcWorkingDay.setEnd(new Date());
-        emp.getTimeTable().add(lcWorkingDay);
-        employeeRepository.save(emp);
-    }
-*/
         }
     }
 
-    public void telephone(TelephoneBO from) {
+    public void addAddress(AddressBO addressBO) {
+
+        Address address = new Address();
+        Employee emp = employeeRepository.findById((addressBO.getEmpId())).get();
+        address.setEmployee(emp);
+        address.setStreet(addressBO.getStreet());
+        address.setPostcode(addressBO.getPostcode());
+        address.setType(addressBO.getType());
+        addressRepository.save(address);
+
+    }
+
+    public void addContactDetails(TelephoneBO telephoneBO) {
+
+        Telephone telephone = new Telephone();
+        Employee emp = employeeRepository.findById((telephoneBO.getEmpId())).get();
+        telephone.setEmployee(emp);
+        telephone.setPhone(telephoneBO.getPhone());
+        telephone.setType(telephoneBO.getType());
+        telephoneRepository.save(telephone);
     }
 }
