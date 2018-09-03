@@ -17,6 +17,7 @@ public class EmployeeViewMapper {
         EmployeeView empl = new EmployeeView();
         empl.setFirstName(employeeBO.getFirstName());
         empl.setLastName(employeeBO.getLastName());
+        empl.setEmail(employeeBO.getEmail());
         empl.setId(employeeBO.getId());
         empl.setTimeTable(employeeBO.getTimeTable().stream().map(TimeTableViewMapper::from).collect(Collectors.toSet()));
 

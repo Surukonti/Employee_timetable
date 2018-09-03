@@ -26,6 +26,20 @@ public class Employee {
     @NotBlank
     private String lastName;
 
+    @Column
+    @NotBlank
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
 
     @OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
     private Set<TimeTable> timeTable;
@@ -51,9 +65,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+
     }
 
 
@@ -69,10 +85,11 @@ public class Employee {
         return id;
     }
 
-    public Employee(@NotBlank String firstName, @NotBlank String lastName, Set<TimeTable> timeTable) {
+    public Employee(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Set<TimeTable> timeTable) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.timeTable = timeTable;
+        this.email = email;
     }
 
     public Employee() {
@@ -80,7 +97,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("Employee[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+        return String.format("Employee[id=%d, firstName='%s', lastName='%s', email='%s']", id, firstName, lastName, email);
     }
 
 }

@@ -11,6 +11,16 @@ public class EmployeeView {
 
     private String lastName;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
     private Set<TimeTableView> timeTable = new HashSet<>();
 
 

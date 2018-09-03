@@ -14,6 +14,7 @@ public class EmployeeBOMapper {
         EmployeeBO empBO = new EmployeeBO();
         empBO.setFirstName(employeeView.getFirstName());
         empBO.setLastName(employeeView.getLastName());
+        empBO.setEmail(employeeView.getEmail());
         empBO.setId(employeeView.getId());
         empBO.setTimeTable(employeeView.getTimeTable().stream().map(TimeTableBOMapper::from).collect(Collectors.toSet()));
 
@@ -26,6 +27,7 @@ public class EmployeeBOMapper {
         EmployeeBO empBO = new EmployeeBO();
         empBO.setFirstName(employee.getFirstName());
         empBO.setLastName(employee.getLastName());
+        empBO.setEmail(employee.getEmail());
         empBO.setId(employee.getId());
         empBO.setTimeTable(employee.getTimeTable().stream().map(TimeTableBOMapper::from).collect(Collectors.toSet()));
 

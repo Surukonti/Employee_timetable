@@ -15,6 +15,7 @@ public class EmployeeMapper {
 
         empl.setFirstName(employeeBO.getFirstName());
         empl.setLastName(employeeBO.getLastName());
+        empl.setEmail(employeeBO.getEmail());
         empl.setId(employeeBO.getId());
         empl.setTimeTable(employeeBO.getTimeTable().stream().map(TimeTableMapper::from).collect(Collectors.toSet()));
 
