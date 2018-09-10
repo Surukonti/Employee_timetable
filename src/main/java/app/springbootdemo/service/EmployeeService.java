@@ -53,14 +53,21 @@ public class EmployeeService {
         return employeeBO1;
     }
 
-    public TelephoneBO phone(TelephoneBO telephoneBO){
-        Employee emp = employeeRepository.findById((telephoneBO.getEmpId())).get();
-        //emp.getId();
-        TelephoneBO telephoneBO1 = TelephoneBOMapper.from(telephoneRepository.save(TelephoneMapper.from(telephoneBO)));
-        return telephoneBO1;
-
+    public List<Employee> findByLastName(String lastName) {
+        List<Employee> employee = employeeRepository.findByLastName(lastName);
+        return employee;
     }
 
+
+    public void deleteEmployee(long id){
+        employeeRepository.deleteById(id);
+    }
+
+
+       /* public Employee findEmployeewithId(long id) {
+       Employee employee = employeeRepository.findEmployeewithId(id);
+       return employee;
+    }*/
 
     public void ill(IllBO illBO) {
         Date startDate = illBO.getIllFromDate();// + "8:00";
@@ -99,26 +106,13 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> findByLastName(String lastName) {
-        List<Employee> employee = employeeRepository.findByLastName(lastName);
-        return employee;
-    }
-
-
-    public void deleteEmployee(long id){
-        employeeRepository.deleteById(id);
-    }
-
-
     public void startTime(long pEmployeeId){
 
         Employee emp = employeeRepository.findById(pEmployeeId).get();
         Set<TimeTable> lastTimeTable = timeTableRepository.findStartTimeforEmpId(pEmployeeId);
         if(lastTimeTable.size()>=1) {
-            throw new StartTimeAlreadyRecordedException("Start time already logged");
-        }
+            throw new StartTimeAlreadyRecordedException("Start time already logged"); }
         TimeTable lcWorkingDay = new TimeTable();
-        // lcWorkingDay.setId(emp.getId()); //new
         lcWorkingDay.setEmployee(emp);   //new
         lcWorkingDay.setBegin(new Date());
         emp.getTimeTable().add(lcWorkingDay);
@@ -157,28 +151,6 @@ public class EmployeeService {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
             currentTimeTable.setEnd_break(new Date());
             timeTableRepository.save(currentTimeTable);
-
-
-
-   /* public void endTime(long pEmployeeId){
-        Employee emp = employeeRepository.findById(pEmployeeId).get();
-        TimeTable lcWorkingDay = (TimeTable) (emp.getTimeTable().toArray())[0];
-        lcWorkingDay.setEnd(new Date());
-
-        Date newdate = new Date();
-        newdate.setYear(2019);
-        newdate.setMonth(11);
-
-        timeTableRepository.save(lcWorkingDay);
-    }*/
-
-   /* public Employee findEmployeewithId(long id) {
-
-        Employee employee = employeeRepository.findEmployeewithId(id);
-
-        return employee;
-    }*/
-
         }
     }
 

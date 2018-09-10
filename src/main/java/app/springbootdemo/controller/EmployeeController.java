@@ -36,6 +36,23 @@ public class EmployeeController {
 	}
 
 
+	@GetMapping(value="/findbylastname/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Employee> findByLastName(@PathVariable("lastName") String lastName) {
+		return employeeService.findByLastName(lastName);
+	}
+
+	@DeleteMapping(value="/employee/{id}/delete")
+	public void deleteEmployee(@PathVariable long id){
+		employeeService.deleteEmployee(id);
+	}
+
+
+	/*@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public Employee findEmployeewithId(@PathVariable("id") long id) {
+		return employeeService.findEmployeewithId(id);
+	}*/
+
+
 	@PostMapping(value="/ill" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void ill(@RequestBody IllView illView) {
 		System.out.println("****************************************    " + illView.getEmpId());
@@ -46,16 +63,6 @@ public class EmployeeController {
 	@PostMapping(value="/holiday" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void holiDay(@RequestBody HoliDayView holiDayView) {
 		employeeService.holiDay(HoliDayBOMapper.from(holiDayView));
-	}
-
-	@GetMapping(value="/findbylastname/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Employee> findByLastName(@PathVariable("lastName") String lastName) {
-		return employeeService.findByLastName(lastName);
-	}
-
-	@DeleteMapping(value="/employee/{id}/delete")
-	public void deleteEmployee(@PathVariable long id){
-		employeeService.deleteEmployee(id);
 	}
 
 	@PostMapping(value="/employee/{id}/start" ,consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -91,16 +98,4 @@ public class EmployeeController {
 		employeeService.addContactDetails(TelephoneBOMapper.from(telephoneView));
 	}
 
-
-	/*@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
-	public Employee findEmployeewithId(@PathVariable("id") long id) {
-		return employeeService.findEmployeewithId(id);
-	}*/
-
-/*
-	@PostMapping(value="/employee/illStartTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void illStartTime(@PathVariable long id) {
-		employeeService.illStartTime(id);
-	}
-*/
 }
