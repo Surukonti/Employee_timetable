@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200, credentials: true")
 @RestController
 @RequestMapping(value="/api")
 public class EmployeeController {
