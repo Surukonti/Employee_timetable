@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static app.springbootdemo.login.security.SecurityConstants.HEADER_STRING;
 import static app.springbootdemo.login.security.SecurityConstants.SECRET;
 import static app.springbootdemo.login.security.SecurityConstants.TOKEN_PREFIX;
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {  //responsible for user authorization //BasicAuth to make spring replace it in the filter chain with our custom implementatn
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
@@ -32,7 +32,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+        String token = request.getHeader(HEADER_STRING); // getauthntctn..reads jwt from authrizatn header and uses jwt to validate token. if all ok set user in securitycontext and allo request.
         if (token != null) {
             // parse the token.
             String user = Jwts.parser()

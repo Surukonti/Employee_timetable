@@ -22,17 +22,17 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Bean
+	@Bean //missing Bcrptpassencod instance, genetare instance of this. i will add it in the application class
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
+	return new BCryptPasswordEncoder();
 	}
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			//@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api").allowedOrigins("\"http://localhost:4200, credentials: true\"");
-			}
-		};
-}}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurerAdapter() {
+//			//@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/api").allowedOrigins("\"http://localhost:4200, credentials: true\"");
+//			}
+//		};
+}
 

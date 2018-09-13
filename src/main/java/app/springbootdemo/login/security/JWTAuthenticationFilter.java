@@ -28,7 +28,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
     }
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
+    public Authentication attemptAuthentication(HttpServletRequest req, //attempt....where we parse the user credintials and issue them to the authmangr.
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
             ApplicationUser creds = new ObjectMapper()
@@ -44,7 +44,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
     @Override
-    protected void successfulAuthentication(HttpServletRequest req,
+    protected void successfulAuthentication(HttpServletRequest req, //checks user succesfly login and use this to generate jwt for user.
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
