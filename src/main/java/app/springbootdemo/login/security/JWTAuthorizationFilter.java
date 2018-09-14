@@ -19,18 +19,20 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {  //respo
         super(authManager);
     }
     @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
+
+
         String header = req.getHeader(HEADER_STRING);
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
-            chain.doFilter(req, res);
-            return;
+        if(req.getMethod().equals("OPTIONS"))
+        {
+            res.setStatus(200); return;
         }
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+
+    UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
-    }
+}
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING); // getauthntctn..reads jwt from authrizatn header and uses jwt to validate token. if all ok set user in securitycontext and allo request.
         if (token != null) {
