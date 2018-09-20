@@ -2,6 +2,7 @@ package app.springbootdemo.database.dbmodel;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -26,13 +27,15 @@ public class BreakDateTimeDeserialize extends JsonDeserializer<String> {
 
     throws IOException, JsonProcessingException{
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+//
+//
+//        //String LocalTime = "08:30:00";
+//        String date = "27-07-2018 08:30:00";
+//        return "sdf.parse(Date)";
+//    }
 
-
-        String date = "27-07-2018 08:30:00";
-        return "sdf.parse(date)";
-    }
-      /*
 
         String str = paramJsonParser.getText().trim();
         String currentTime = null;
@@ -42,5 +45,5 @@ public class BreakDateTimeDeserialize extends JsonDeserializer<String> {
             // Handle exception here
         }
         return currentTime;
-    }*/
+    }
 }

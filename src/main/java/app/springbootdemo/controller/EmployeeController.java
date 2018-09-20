@@ -7,14 +7,13 @@ import app.springbootdemo.database.dbmodel.Employee;
 import app.springbootdemo.service.EmployeeService;
 import app.springbootdemo.service.mapper.*;
 import app.springbootdemo.service.model.EmployeeBO;
-import app.springbootdemo.service.model.TelephoneBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-//@CrossOrigin(origins = "http://localhost:4200, credentials: true")
+import java.util.Optional;
+@CrossOrigin(origins = "http://localhost:4200, credentials: true")
 @RestController
 @RequestMapping(value="/api")
 public class EmployeeController {
@@ -36,8 +35,7 @@ public class EmployeeController {
 		return employeeView1;
 	}
 
-
-	@GetMapping(value="/findbylastname/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/findByLastName/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Employee> findByLastName(@PathVariable("lastName") String lastName) {
 		return employeeService.findByLastName(lastName);
 	}
@@ -46,12 +44,6 @@ public class EmployeeController {
 	public void deleteEmployee(@PathVariable long id){
 		employeeService.deleteEmployee(id);
 	}
-
-
-	/*@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
-	public Employee findEmployeewithId(@PathVariable("id") long id) {
-		return employeeService.findEmployeewithId(id);
-	}*/
 
 
 	@PostMapping(value="/ill" ,consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -65,6 +57,7 @@ public class EmployeeController {
 	public void holiDay(@RequestBody HoliDayView holiDayView) {
 		employeeService.holiDay(HoliDayBOMapper.from(holiDayView));
 	}
+
 
 	@PostMapping(value="/employee/{id}/start" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void startTime(@PathVariable long id) {
@@ -99,4 +92,16 @@ public class EmployeeController {
 		employeeService.addContactDetails(TelephoneBOMapper.from(telephoneView));
 	}
 
+
+	@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public Optional<Employee> findEmployeewithId(@PathVariable("id") long id) {
+		return employeeService.findEmployeewithId(id);
+	}
+
+/*
+	@PostMapping(value="/employee/illStartTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void illStartTime(@PathVariable long id) {
+		employeeService.illStartTime(id);
+	}
+*/
 }

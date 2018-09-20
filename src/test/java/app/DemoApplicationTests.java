@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,10 +32,10 @@ public class DemoApplicationTests {
         final Set<TimeTableView> timeTableViews = new HashSet<>();
         final TimeTableView ttv = new TimeTableView();
         ttv.setId(21L);
-        ttv.setBegin(new Date());
-        ttv.setEnd(new Date());
-        ttv.setBegin_break(new Date());
-        ttv.setEnd_break(new Date());
+        ttv.setStartDate(LocalDate.now());
+        ttv.setEndDate(LocalDate.now());
+       // ttv.setBegin_break(new Date());
+        ttv.setEnd_break(LocalTime.now());
         timeTableViews.add(ttv);
 
         final EmployeeView input = new EmployeeView();
@@ -46,10 +48,10 @@ public class DemoApplicationTests {
         final Set<TimeTableBO> timeTable = new HashSet<>();
         final TimeTableBO tt = new TimeTableBO();
         tt.setId(21);
-        tt.setBegin(new Date());
-        tt.setEnd(new Date());
-        tt.setBegin_break(new Date());
-        tt.setEnd_break(new Date());
+        tt.setStartDate(LocalDate.now());
+        tt.setEndDate(LocalDate.now());
+      //  tt.setBegin_break(new Date());
+        tt.setEnd_break(LocalTime.now());
         timeTable.add(tt);
 
         final EmployeeBO expectedOutput = new EmployeeBO();

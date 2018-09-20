@@ -1,6 +1,8 @@
 package app.springbootdemo.controller.model;
 
 import java.lang.String;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class TimeTableView {
@@ -9,13 +11,19 @@ public class TimeTableView {
 
     private long id;
 
-    private Date begin;
+    private LocalTime begin;
 
-    private Date begin_break;
+    private LocalTime begin_break;
 
-    private Date end_break;
+    private LocalTime end_break;
 
-    private Date end;
+    private LocalTime end;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -29,35 +37,53 @@ public class TimeTableView {
         this.id = id;
     }
 
-    public Date getBegin() {
-        return begin;
-    }
 
-    public void setBegin(Date begin) {
-        this.begin = begin;
-    }
 
-    public Date getBegin_break() {
+    public LocalTime getBegin_break() {
         return begin_break;
     }
 
-    public void setBegin_break(Date begin_break) {
+    public void setBegin_break(LocalTime begin_break) {
         this.begin_break = begin_break;
     }
 
-    public Date getEnd_break() {
+    public LocalTime getEnd_break() {
         return end_break;
     }
 
-    public void setEnd_break(Date end_break) {
+    public void setEnd_break(LocalTime end_break) {
         this.end_break = end_break;
     }
 
-    public Date getEnd() {
+    public LocalTime getBegin() {
+        return begin;
+    }
+
+    public void setBegin(LocalTime begin) {
+        this.begin = begin;
+    }
+
+    public LocalTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalTime end) {
         this.end = end;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }
