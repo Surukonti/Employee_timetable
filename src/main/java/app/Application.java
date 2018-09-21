@@ -20,9 +20,9 @@ public class Application {
 	}
 
 	@Bean //missing Bcrptpassencod instance, genetare instance of this. i will add it in the application class
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-	return new BCryptPasswordEncoder();
-	}
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 //	@Bean
 //	public WebMvcConfigurer corsConfigurer() {
 //		return new WebMvcConfigurerAdapter() {
