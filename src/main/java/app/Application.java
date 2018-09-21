@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.util.pattern.PathPatternParser;
 
 import java.util.Arrays;
@@ -23,15 +26,17 @@ public class Application {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurerAdapter() {
-//			//@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/api").allowedOrigins("\"http://localhost:4200, credentials: true\"");
-//			}
-//		};
-}
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			//@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api").allowedOrigins("\"http://localhost:4200, credentials: true\"");
+			}
+		};
+	}}
+
+
 
 	/*@Bean
 	 UrlBasedCorsConfigurationSource corsConfigurationSource() {
