@@ -81,6 +81,8 @@ public class EmployeeService {
         ill.setEndDate(LocalDate.now());
         ill.setBegin_break(null);
         ill.setEnd_break(null);
+        ill.setBegin(null);
+        ill.setEnd(null);
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
 
@@ -102,6 +104,8 @@ public class EmployeeService {
         holiDay.setEnd(LocalTime.now());
         holiDay.setBegin_break(null);
         holiDay.setEnd_break(null);
+        holiDay.setStartDate(null);
+        holiDay.setEndDate(null);
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
 
@@ -142,7 +146,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee1(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
-           // currentTimeTable.setStartDate(LocalDate.now());
+            //currentTimeTable.setStartDate(LocalDate.now());
             currentTimeTable.setBegin_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
         }
@@ -155,7 +159,7 @@ public class EmployeeService {
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
             currentTimeTable.setEnd_break(LocalTime.now());
-            //currentTimeTable.setEndDate(LocalDate.now());
+           // currentTimeTable.setEndDate(LocalDate.now());
             timeTableRepository.save(currentTimeTable);
 
         }

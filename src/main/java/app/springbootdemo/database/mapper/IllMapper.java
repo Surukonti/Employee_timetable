@@ -19,12 +19,14 @@ public class IllMapper {
 //            return ill;
 //        }
 
-    public static Ill from (Date startDate, Date endDate, LocalTime beginBreak, LocalTime endBreak) {
+    public static Ill from (LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalTime beginBreak, LocalTime endBreak) {
         Ill ill = new Ill();
-        ill.setStartDate(LocalDate.now());
+        ill.setStartDate(startDate);
         ill.setBegin_break(beginBreak);
         ill.setEnd_break(endBreak);
-        ill.setEndDate(LocalDate.now());
+        ill.setEndDate(endDate);
+        ill.setBegin(startTime);
+        ill.setEnd(endTime);
 
 
         return ill;

@@ -17,6 +17,8 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.Filter;
 
+import java.util.Arrays;
+
 import static app.springbootdemo.login.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
@@ -57,8 +59,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter { //this extenstio
 
 
 
-
 }
+
+
 
 
 
