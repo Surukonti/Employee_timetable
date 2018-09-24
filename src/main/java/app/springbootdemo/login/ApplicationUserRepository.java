@@ -1,4 +1,5 @@
-package app.springbootdemo.database.repository;
+package app.springbootdemo.login;
+
 import app.springbootdemo.login.ApplicationUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 

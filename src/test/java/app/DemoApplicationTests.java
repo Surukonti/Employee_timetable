@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class DemoApplicationTests {
         ttv.setStartDate(LocalDate.now());
         ttv.setEndDate(LocalDate.now());
        // ttv.setBegin_break(new Date());
-        ttv.setEnd_break(LocalTime.now());
+       // ttv.setEnd_break(new Date());
         timeTableViews.add(ttv);
 
         final EmployeeView input = new EmployeeView();
@@ -50,8 +49,8 @@ public class DemoApplicationTests {
         tt.setId(21);
         tt.setStartDate(LocalDate.now());
         tt.setEndDate(LocalDate.now());
-      //  tt.setBegin_break(new Date());
-        tt.setEnd_break(LocalTime.now());
+       // tt.setBegin_break(new Date());
+       // tt.setEnd_break(new Date());
         timeTable.add(tt);
 
         final EmployeeBO expectedOutput = new EmployeeBO();

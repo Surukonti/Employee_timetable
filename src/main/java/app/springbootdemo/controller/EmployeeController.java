@@ -98,6 +98,11 @@ public class EmployeeController {
 		return employeeService.findEmployeewithId(id);
 	}
 
+	@PutMapping(value="/employee/{id}/updateemployeedetails" ,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void updateEmployeeDetails(@PathVariable("id") long id,@RequestBody EmployeeView employeeView) {
+		EmployeeBO  employeeBO = EmployeeBOMapper.from(employeeView);
+		employeeService.updateEmployeeDetails(employeeBO,id);
+	}
 /*
 	@PostMapping(value="/employee/illStartTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void illStartTime(@PathVariable long id) {

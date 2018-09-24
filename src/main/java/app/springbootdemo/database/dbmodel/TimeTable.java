@@ -55,7 +55,7 @@ public class TimeTable implements Serializable {
     private LocalTime begin_break;
 
     @Column(name = "end_break")
-    //@JsonDeserialize(using=BreakDateTimeDeserialize.class)
+    @JsonDeserialize(using=BreakDateTimeDeserialize.class)
     private LocalTime end_break;
 
 

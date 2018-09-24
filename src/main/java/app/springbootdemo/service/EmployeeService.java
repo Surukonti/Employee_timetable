@@ -11,6 +11,7 @@ import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -77,12 +78,10 @@ public class EmployeeService {
         Employee emp = employeeRepository.findById((illBO.getEmpId())).get();
         Ill ill = new Ill();
         ill.setEmployee(emp);
-        ill.setStartDate(LocalDate.now());
-        ill.setEndDate(LocalDate.now());
+        ill.setBegin(LocalTime.now());
+        ill.setEnd(LocalTime.now());
         ill.setBegin_break(null);
         ill.setEnd_break(null);
-        ill.setBegin(null);
-        ill.setEnd(null);
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
 
@@ -104,8 +103,6 @@ public class EmployeeService {
         holiDay.setEnd(LocalTime.now());
         holiDay.setBegin_break(null);
         holiDay.setEnd_break(null);
-        holiDay.setStartDate(null);
-        holiDay.setEndDate(null);
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
 
@@ -126,6 +123,7 @@ public class EmployeeService {
         emp.getTimeTable().add(lcWorkingDay);
         timeTableRepository.save(lcWorkingDay);
 
+
     }
 
     public void endTime(long pEmployeeId) {
@@ -133,7 +131,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.findForCurrentTimeTableForEmployee(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
-           currentTimeTable.setEnd(LocalTime.now());
+            currentTimeTable.setEnd(LocalTime.now());
             currentTimeTable.setEndDate(LocalDate.now());
             timeTableRepository.save(currentTimeTable);
         }
@@ -146,7 +144,6 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee1(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
-            //currentTimeTable.setStartDate(LocalDate.now());
             currentTimeTable.setBegin_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
         }
@@ -159,7 +156,6 @@ public class EmployeeService {
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
             currentTimeTable.setEnd_break(LocalTime.now());
-           // currentTimeTable.setEndDate(LocalDate.now());
             timeTableRepository.save(currentTimeTable);
 
         }
@@ -185,5 +181,17 @@ public class EmployeeService {
         telephone.setPhone(telephoneBO.getPhone());
         telephone.setType(telephoneBO.getType());
         telephoneRepository.save(telephone);
+    }
+
+
+    public void updateEmployeeDetails(EmployeeBO employeeBO,long id) {
+
+        Employee emp = employeeRepository.findById((id)).get();
+        emp.setFirstName(employeeBO.getFirstName());
+        emp.setLastName(employeeBO.getLastName());
+        emp.setEmail(employeeBO.getEmail());
+
+        employeeRepository.save(emp);
+
     }
 }

@@ -34,7 +34,7 @@ public interface TimeTableRepository extends CrudRepository<TimeTable, Long> {
 
     //@Query("select t from TimeTable t join t.employee e where e.id = :empId and  t.begin IS not  NULL and  CONVERT (date, start_time) =  CONVERT (date, GETDATE()) ")
     //@Query("select t from TimeTable t join t.employee e where e.id = :empId and  t.begin =  current_date() ")
-    @Query("select t from TimeTable t join t.employee e where e.id = :empId and  t.begin IS not  NULL and DATE(t.begin) =  current_date() ")
+    @Query("select t from TimeTable t join t.employee e where e.id = :empId and  t.begin IS not  NULL and DATE(t.begin)= current_date()")
     public Set<TimeTable> findStartTimeforEmpId(@Param("empId") Long empId);
 
 }

@@ -27,23 +27,23 @@ public class BreakDateTimeDeserialize extends JsonDeserializer<String> {
 
     throws IOException, JsonProcessingException{
 
-//
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-//
-//
-//        //String LocalTime = "08:30:00";
-//        String date = "27-07-2018 08:30:00";
-//        return "sdf.parse(Date)";
-//    }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
 
-        String str = paramJsonParser.getText().trim();
-        String currentTime = null;
-        try {
-            currentTime = dateFormat.format(dateFormat.parse(str));
-        } catch (Exception e) {
-            // Handle exception here
-        }
-        return currentTime;
+        //String LocalTime = "08:30:00";
+        String date = "27-07-2018 08:30:00";
+        return "sdf.parse(Date)";
     }
+
+
+//        String str = paramJsonParser.getText().trim();
+//        String currentTime = null;
+//        try {
+//            currentTime = dateFormat.format(dateFormat.parse(str));
+//        } catch (Exception e) {
+//            // Handle exception here
+//        }
+//        return currentTime;
+//    }
 }

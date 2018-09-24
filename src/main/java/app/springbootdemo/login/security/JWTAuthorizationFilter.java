@@ -23,7 +23,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {  //respo
                                     FilterChain chain) throws IOException, ServletException {
 
 
-        String header = req.getMethod();
+        String header = req.getHeader(HEADER_STRING);
         if(req.getMethod().equals("OPTIONS"))
         {
             res.setStatus(200); return;
@@ -55,3 +55,4 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {  //respo
         return null;
     }
 }
+

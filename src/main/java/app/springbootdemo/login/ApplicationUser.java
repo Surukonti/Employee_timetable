@@ -1,9 +1,6 @@
 package app.springbootdemo.login;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class ApplicationUser {
@@ -11,7 +8,9 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private long id;
+
     private String username;
+
     private String password;
 
     public long getId() {

@@ -1,6 +1,10 @@
 package app.springbootdemo.database.dbmodel;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import javax.swing.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Employee")
-public class Employee {
+public class Employee implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,8 +45,9 @@ public class Employee {
 
 
 
-    @OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
-    private Set<TimeTable> timeTable;
+    @OneToMany(mappedBy = "employee",cascade=CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = TimeTable.class)
+    @JsonManagedReference
+    private Set<TimeTable> timeTable = new HashSet<TimeTable>();
 
 
     public void setId(long id) {
@@ -76,6 +81,7 @@ public class Employee {
     public Set<TimeTable> getTimeTable() {
         return timeTable;
     }
+
 
     public void setTimeTable(Set<TimeTable> timeTable) {
         this.timeTable = timeTable;
