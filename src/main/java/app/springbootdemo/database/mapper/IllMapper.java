@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class IllMapper {
 
-    public static Ill from (Date startTime, Date endTime, Date beginBreak, Date endBreak) {
+    public static Ill from (Date startDate, Date endTime, Date beginBreak, Date endBreak) {
         Ill ill = new Ill();
         ill.setStartDate(LocalDate.now());
        // ill.setBegin_break(beginBreak);
         //ill.setEnd_break(endBreak);
-        ill.setEnd(LocalTime.now());
+        ill.setEndDate(LocalDate.now());
 
 
         return ill;

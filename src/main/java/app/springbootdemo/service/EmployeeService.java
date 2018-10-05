@@ -144,6 +144,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee1(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
+            currentTimeTable.setStartDate(LocalDate.now());
             currentTimeTable.setBegin_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
         }
@@ -155,6 +156,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee2(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
+            currentTimeTable.setEndDate(LocalDate.now());
             currentTimeTable.setEnd_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
 
