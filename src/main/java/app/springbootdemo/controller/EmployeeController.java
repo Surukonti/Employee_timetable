@@ -4,24 +4,34 @@ package app.springbootdemo.controller;
 import app.springbootdemo.controller.mapper.EmployeeViewMapper;
 import app.springbootdemo.controller.model.*;
 import app.springbootdemo.database.dbmodel.Employee;
+//import app.springbootdemo.reports.ReportService;
 import app.springbootdemo.service.EmployeeService;
 import app.springbootdemo.service.mapper.*;
 import app.springbootdemo.service.model.EmployeeBO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 //@CrossOrigin(origins = "http://localhost:4200, credentials: true")
+
 @RestController
+
 @RequestMapping("/api")
+
+
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
 
+//	@Autowired
+//	ReportService reportService;
 
+	@ApiOperation(value = "returns something")
 	@GetMapping(value="/employee",  produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Employee> getAll() {
 		return employeeService.getAll();
@@ -49,6 +59,13 @@ public class EmployeeController {
 	@PostMapping(value="/ill" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void ill(@RequestBody IllView illView) {
 		System.out.println("****************************************    " + illView.getEmpId());
+
+//		for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+//			illView.getIllFromDate();
+//			illView.getIllToDate();
+//
+//		}
+
 		employeeService.ill(IllBOMapper.from(illView));
 	}
 
@@ -93,10 +110,10 @@ public class EmployeeController {
 	}
 
 
-	@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
-	public Optional<Employee> findEmployeewithId(@PathVariable("id") long id) {
-		return employeeService.findEmployeewithId(id);
-	}
+	//@GetMapping(value="/findbyId/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	//public Optional<Employee> findEmployeewithId(@PathVariable("id") long id) {
+	//	return employeeService.findEmployeewithId(id);
+	//}
 
 	@PutMapping(value="/employee/{id}/updateemployeedetails" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void updateEmployeeDetails(@PathVariable("id") long id,@RequestBody EmployeeView employeeView) {
@@ -109,4 +126,9 @@ public class EmployeeController {
 		employeeService.illStartTime(id);
 	}
 */
+//@GetMapping(value="/report/monthview/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+//public void employeeMonthViewReport(@PathVariable("id") long id) {
+//	reportService.getReport(id);
+//}
+
 }

@@ -3,6 +3,7 @@ package app.springbootdemo.service;
 
 import app.springbootdemo.database.dbmodel.*;
 import app.springbootdemo.database.mapper.EmployeeMapper;
+import app.springbootdemo.database.mapper.IllMapper;
 import app.springbootdemo.database.repository.*;
 import app.springbootdemo.exceptions.StartTimeAlreadyRecordedException;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
@@ -14,10 +15,15 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
+
+
 
 @Service
 public class EmployeeService {
+
 
 
     final EmployeeRepository employeeRepository;
@@ -61,10 +67,10 @@ public class EmployeeService {
         List<Employee> employee = employeeRepository.findByLastName(lastName);
         return employee;
     }
-    public Optional<Employee> findEmployeewithId(long id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        return employee;
-    }
+    // public Optional<Employee> findEmployeewithId(long id) {
+    //  Optional<Employee> employee = employeeRepository.findById(id);
+    //  return employee;
+    //}
 
 
     public void deleteEmployee(long id){
@@ -73,36 +79,37 @@ public class EmployeeService {
 
 
     public void ill(IllBO illBO) {
-        Date startDate = illBO.getIllFromDate();// + "8:00";
+        Date startDate  = illBO.getIllFromDate();//+ "8:00";
         Date endDate = illBO.getIllToDate();// + "16:00";
         Employee emp = employeeRepository.findById((illBO.getEmpId())).get();
+
         Ill ill = new Ill();
         ill.setEmployee(emp);
-        ill.setBegin(LocalTime.now());
-        ill.setEnd(LocalTime.now());
-        ill.setBegin_break(null);
-        ill.setEnd_break(null);
+        ill.setStartDate(LocalDate.now());
+        ill.setEndDate(LocalDate.now());
+        //ill.setBegin_break(null);
+        // ill.setEnd_break(null);
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
 
 
         //System.out.println(emp.getFirstName());
         //System.out.println(emp.getId());
-        //emp.getTimeTable().add(IllMapper.from(startTime, endTime, begin_Break, end_Break));
+        // emp.getTimeTable().add(IllMapper.from(startDate, endDate, s));
         //System.out.println("/////////////////////////////////////////   " + timeTable.getEmployee().getId());
     }
 
 
     public void holiDay(HoliDayBO holiDayBO) {
-        Date startDate = holiDayBO.getFromDate();
+        Date setStartDate = holiDayBO.getFromDate();
         Date endDate = holiDayBO.getToDate();// + "16:00";
         Employee emp = employeeRepository.findById((holiDayBO.getId())).get();
         HoliDay holiDay = new HoliDay();
         holiDay.setEmployee(emp);
-        holiDay.setBegin(LocalTime.now());
-        holiDay.setEnd(LocalTime.now());
-        holiDay.setBegin_break(null);
-        holiDay.setEnd_break(null);
+        holiDay.setStartDate(LocalDate.now());
+        holiDay.setEndDate(LocalDate.now());
+//        holiDay.setBegin_break(null);
+//        holiDay.setEnd_break(null);
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
 
@@ -134,6 +141,7 @@ public class EmployeeService {
             currentTimeTable.setEnd(LocalTime.now());
             currentTimeTable.setEndDate(LocalDate.now());
             timeTableRepository.save(currentTimeTable);
+            //currentTimeTable.getEndDate().getMonth();
         }
 
     }
@@ -144,7 +152,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee1(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
-            currentTimeTable.setStartDate(LocalDate.now());
+            // currentTimeTable.setStartDate(LocalDate.now());
             currentTimeTable.setBegin_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
         }
@@ -156,7 +164,7 @@ public class EmployeeService {
         Optional<TimeTable> currentTimeTableOptional = timeTableRepository.currentTimeTableForEmployee2(emp.getId()).stream().findFirst();
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
-            currentTimeTable.setEndDate(LocalDate.now());
+            //currentTimeTable.setEndDate(LocalDate.now());
             currentTimeTable.setEnd_break(LocalTime.now());
             timeTableRepository.save(currentTimeTable);
 

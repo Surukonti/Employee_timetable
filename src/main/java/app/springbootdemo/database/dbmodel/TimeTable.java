@@ -40,11 +40,12 @@ public class TimeTable implements Serializable {
 
 
     @Column(name = "Start_Date")
-    //@DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
     @JsonDeserialize(using=StartDateTimeDeserialize.class)
     private LocalDate startDate;
 
     @Column(name = "end_Date")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
     @JsonDeserialize(using=EndDateTimeDeserialize.class)
     private LocalDate endDate;
 

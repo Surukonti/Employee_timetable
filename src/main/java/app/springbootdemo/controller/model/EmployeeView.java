@@ -1,16 +1,22 @@
 package app.springbootdemo.controller.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class EmployeeView {
 
+    @ApiModelProperty(notes = "Auto generate id")
     private long id;
 
+    @ApiModelProperty(notes = "name given by user")
     private String firstName;
 
+    @ApiModelProperty(notes = "lastname given by user")
     private String lastName;
 
+    @ApiModelProperty(notes = "specify email")
     public String getEmail() {
         return email;
     }

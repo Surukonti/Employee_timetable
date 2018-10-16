@@ -1,3 +1,95 @@
+GET http://localhost:8085/swagger-ui.html
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-10-14T045829.200.html
+
+###
+
+GET http://localhost:8085/swagger-ui.html
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-10-14T045749.200.html
+
+###
+
+GET http://localhost:8085/swagger-ui.html
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-10-09T035531.200.html
+
+###
+
+POST http://localhost:8085/swagger-ui.html
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2018-10-09T035347.200.json
+
+###
+
+GET http://localhost:8085/v2/api-docs
+
+Accept: */*
+Cache-Control: no-cache
+
+{     "username" : "m",     "password" : "admin"  }
+
+<> 2018-10-09T035153.200.json
+
+###
+
+POST http://localhost:8085/api/sign-up
+
+Accept: */*
+Cache-Control: no-cache
+
+{     "username" : "m",     "password" : "admin"  }
+
+<> 2018-10-09T035052.200.html
+
+###
+
+GET http://localhost:8085/swagger-ui.html
+Accept: */*
+Cache-Control: no-cache
+
+{     "username" : "m",     "password" : "admin"  }
+
+<> 2018-10-09T034936.200.html
+
+###
+
+GET http://localhost:8085/v2/api-docs
+Accept: */*
+Cache-Control: no-cache
+
+{     "username" : "m",     "password" : "admin"  }
+
+<> 2018-10-09T034922.200.json
+
+###
+
+POST http://localhost:8085/api/sign-up
+Accept: */*
+Cache-Control: no-cache
+
+{     "username" : "m",     "password" : "admin"  }
+
+###
+
 DELETE http://localhost:8081/api/employee/17
 Accept: */*
 Cache-Control: no-cache

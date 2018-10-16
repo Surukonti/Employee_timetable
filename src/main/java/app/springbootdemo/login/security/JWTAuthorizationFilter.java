@@ -24,6 +24,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {  //respo
 
 
         String header = req.getHeader(HEADER_STRING);
+       // String header = req.getMethod();
         if(req.getMethod().equals("OPTIONS"))
         {
             res.setStatus(200); return;

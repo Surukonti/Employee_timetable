@@ -12,6 +12,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.util.pattern.PathPatternParser;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 import java.util.Arrays;
@@ -32,6 +36,9 @@ public class Application {
 	}
 
 
+
+	}
+
 //	@Bean
 //	public WebMvcConfigurer corsConfigurer() {
 //		return new WebMvcConfigurerAdapter() {
@@ -41,7 +48,7 @@ public class Application {
 //			}
 //		};
 //	}}
-}
+
 
 
 	/*@Bean
