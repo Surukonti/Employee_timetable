@@ -21,9 +21,9 @@ public class TimeTableBO {
 
     private LocalTime end;
 
-    private LocalDate StartDate;
+    private LocalDate date;
 
-    private LocalDate EndDate;
+  //  private LocalDate EndDate;
 
 
 
@@ -75,19 +75,20 @@ public class TimeTableBO {
         this.end = end;
     }
 
-    public LocalDate getStartDate() {
-        return StartDate;
+    public LocalDate getDate() {
+        return date;
+    }
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        StartDate = startDate;
-    }
 
-    public LocalDate getEndDate() {
-        return EndDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        EndDate = endDate;
-    }
+//
+//    public LocalDate getEndDate() {
+//        return EndDate;
+//    }
+//
+//    public void setEndDate(LocalDate endDate) {
+//        EndDate = endDate;
+//    }
 }

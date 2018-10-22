@@ -30,10 +30,11 @@ public class TimeTableBOMapper {
 
     public static TimeTableBO from (TimeTableView timeTableView) {
         TimeTableBO timeTableBO = new TimeTableBO();
-        timeTableBO.setStartDate(timeTableView.getStartDate());
+        timeTableBO.setBegin(timeTableView.getBegin());
+        timeTableBO.setEnd(timeTableView.getEnd());
+        timeTableBO.setDate(timeTableView.getDate());
         timeTableBO.setBegin_break(timeTableView.getBegin_break());
         timeTableBO.setEnd_break(timeTableView.getEnd_break());
-        timeTableBO.setEndDate(timeTableView.getEndDate());
         timeTableBO.setId(timeTableView.getId());
         return timeTableBO;
     }
@@ -45,6 +46,7 @@ public class TimeTableBOMapper {
         timeTableBO.setEnd_break(timeTable.getEnd_break());
         timeTableBO.setEnd(timeTable.getEnd());
         timeTableBO.setId(timeTable.getId());
+        timeTableBO.setDate(timeTable.getDate());
         return timeTableBO;
     }
 }

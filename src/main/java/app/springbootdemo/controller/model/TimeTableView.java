@@ -19,9 +19,9 @@ public class TimeTableView {
 
     private LocalTime end;
 
-    private LocalDate startDate;
+    private LocalDate date;
 
-    private LocalDate endDate;
+   // private LocalDate endDate;
 
 
 
@@ -71,19 +71,19 @@ public class TimeTableView {
         this.end = end;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+//    public LocalDate getEndDate() {
+//        return endDate;
+//    }
+//
+//    public void setEndDate(LocalDate endDate) {
+//        this.endDate = endDate;
+//    }
 }

@@ -10,6 +10,7 @@ import app.springbootdemo.service.mapper.EmployeeBOMapper;
 import app.springbootdemo.service.model.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -24,18 +25,11 @@ import java.util.*;
 @Service
 public class EmployeeService {
 
-
-
     final EmployeeRepository employeeRepository;
-
     final TimeTableRepository timeTableRepository;
-
     final HoliDayRepository holiDayRepository;
-
     final IllRepository illRepository;
-
     final TelephoneRepository telephoneRepository;
-
     final AddressRepository addressRepository;
 
     @Autowired
@@ -48,55 +42,35 @@ public class EmployeeService {
         this.telephoneRepository = telephoneRepository;
         this.addressRepository = addressRepository;
     }
-
-
     public List<Employee> getAll() {
         List<Employee> list = new ArrayList<>();
         Iterable<Employee> employees = employeeRepository.findAll();
         employees.forEach(list::add);
         return list;
     }
-
     public EmployeeBO postEmployee(EmployeeBO employeeBO) {
         EmployeeBO employeeBO1 = EmployeeBOMapper.from(employeeRepository.save(EmployeeMapper.from(employeeBO)));
         return employeeBO1;
     }
-
-
     public List<Employee> findByLastName(String lastName) {
         List<Employee> employee = employeeRepository.findByLastName(lastName);
         return employee;
     }
-    // public Optional<Employee> findEmployeewithId(long id) {
-    //  Optional<Employee> employee = employeeRepository.findById(id);
-    //  return employee;
-    //}
-
-
     public void deleteEmployee(long id){
         employeeRepository.deleteById(id);
     }
 
-
     public void ill(IllBO illBO) {
-        Date startDate  = illBO.getIllFromDate();//+ "8:00";
-        Date endDate = illBO.getIllToDate();// + "16:00";
+        Date illFromDate  = illBO.getIllFromDate();//+ "8:00";
+        Date illToDate = illBO.getIllToDate();// + "16:00";
         Employee emp = employeeRepository.findById((illBO.getEmpId())).get();
-
         Ill ill = new Ill();
         ill.setEmployee(emp);
-        ill.setStartDate(LocalDate.now());
-        ill.setEndDate(LocalDate.now());
-        //ill.setBegin_break(null);
-        // ill.setEnd_break(null);
+        //ill.setStartDate(illFromDate.before());
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
 
-
-        //System.out.println(emp.getFirstName());
-        //System.out.println(emp.getId());
-        // emp.getTimeTable().add(IllMapper.from(startDate, endDate, s));
-        //System.out.println("/////////////////////////////////////////   " + timeTable.getEmployee().getId());
+        // emp.getTimeTable().add(IllMapper.from());
     }
 
 
@@ -107,17 +81,14 @@ public class EmployeeService {
         HoliDay holiDay = new HoliDay();
         holiDay.setEmployee(emp);
         holiDay.setStartDate(LocalDate.now());
-        holiDay.setEndDate(LocalDate.now());
-//        holiDay.setBegin_break(null);
-//        holiDay.setEnd_break(null);
+        //holiDay.setStartDate(Date);
+       // holiDay.setEndDate(LocalDate.now());
         emp.getTimeTable().add(holiDay);
         holiDayRepository.save(holiDay);
-
     }
 
 
     public void startTime(long pEmployeeId){
-
         Employee emp = employeeRepository.findById(pEmployeeId).get();
         Set<TimeTable> lastTimeTable = timeTableRepository.findStartTimeforEmpId(pEmployeeId);
         if(lastTimeTable.size()>=1) {
@@ -139,7 +110,6 @@ public class EmployeeService {
         if (currentTimeTableOptional.isPresent()) {
             TimeTable currentTimeTable = currentTimeTableOptional.get();
             currentTimeTable.setEnd(LocalTime.now());
-            currentTimeTable.setEndDate(LocalDate.now());
             timeTableRepository.save(currentTimeTable);
             //currentTimeTable.getEndDate().getMonth();
         }

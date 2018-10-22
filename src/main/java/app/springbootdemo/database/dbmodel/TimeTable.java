@@ -39,15 +39,15 @@ public class TimeTable implements Serializable {
     private LocalTime end;
 
 
-    @Column(name = "Start_Date")
+    @Column(name = "Date")
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
     @JsonDeserialize(using=StartDateTimeDeserialize.class)
-    private LocalDate startDate;
+    private LocalDate date;
 
-    @Column(name = "end_Date")
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
-    @JsonDeserialize(using=EndDateTimeDeserialize.class)
-    private LocalDate endDate;
+//    @Column(name = "end_Date")
+//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
+//    @JsonDeserialize(using=EndDateTimeDeserialize.class)
+//    private LocalDate endDate;
 
 
     @Column(name = "begin_break")
@@ -88,21 +88,21 @@ public class TimeTable implements Serializable {
         this.end = end;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartDate(LocalDate date) {
+        this.date = date;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+//    public LocalDate getEndDate() {
+//        return endDate;
+//    }
+//
+//    public void setEndDate(LocalDate endDate) {
+//        this.endDate = endDate;
+//    }
 
     public LocalTime getBegin_break() {
         return begin_break;

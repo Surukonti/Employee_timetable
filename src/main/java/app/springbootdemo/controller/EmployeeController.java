@@ -4,16 +4,21 @@ package app.springbootdemo.controller;
 import app.springbootdemo.controller.mapper.EmployeeViewMapper;
 import app.springbootdemo.controller.model.*;
 import app.springbootdemo.database.dbmodel.Employee;
-//import app.springbootdemo.reports.ReportService;
+import app.springbootdemo.database.repository.EmployeeRepository;
+import app.springbootdemo.reports.ReportBean;
+import app.springbootdemo.reports.ReportService;
 import app.springbootdemo.service.EmployeeService;
 import app.springbootdemo.service.mapper.*;
 import app.springbootdemo.service.model.EmployeeBO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 //@CrossOrigin(origins = "http://localhost:4200, credentials: true")
@@ -28,8 +33,8 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 
-//	@Autowired
-//	ReportService reportService;
+	@Autowired
+	ReportService reportService;
 
 	@ApiOperation(value = "returns something")
 	@GetMapping(value="/employee",  produces=MediaType.APPLICATION_JSON_VALUE)
@@ -46,6 +51,16 @@ public class EmployeeController {
 	}
 
 	@GetMapping(value="/findByLastName/{lastName}",  produces=MediaType.APPLICATION_JSON_VALUE)
+
+//	public ResponseEntity <Employee> findByLastName (@PathVariable("lastName") String lastName)
+//	{
+//		Employee emp = EmployeeService.findByLastName(lastName);
+//		if(emp==null) {
+//			return ResponseEntity.notFound().build();
+//
+//		}
+//		return ResponseEntity.ok().body(emp);
+//	}
 	public List<Employee> findByLastName(@PathVariable("lastName") String lastName) {
 		return employeeService.findByLastName(lastName);
 	}
@@ -60,7 +75,7 @@ public class EmployeeController {
 	public void ill(@RequestBody IllView illView) {
 		System.out.println("****************************************    " + illView.getEmpId());
 
-//		for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+//		{
 //			illView.getIllFromDate();
 //			illView.getIllToDate();
 //
@@ -89,6 +104,7 @@ public class EmployeeController {
 	@PostMapping(value="/employee/startBreakTime/{id}" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void startBreakTime(@PathVariable long id) {
 		employeeService.startBreakTime(id);
+
 	}
 
 
@@ -126,9 +142,10 @@ public class EmployeeController {
 		employeeService.illStartTime(id);
 	}
 */
-//@GetMapping(value="/report/monthview/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
-//public void employeeMonthViewReport(@PathVariable("id") long id) {
-//	reportService.getReport(id);
-//}
+    @GetMapping(value="/report/monthview/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<ReportBean> employeeMonthViewReport(@PathVariable("id") long id) {
+	     return reportService.getReport(id);
+}
+
 
 }

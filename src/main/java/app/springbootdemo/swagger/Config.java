@@ -31,9 +31,9 @@ public class Config {
     @Bean
     public Docket apiApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.any()) // basePackage("app.springbootdemo.controller")
-                .paths(PathSelectors.any())
-                //.paths(regex("/api.*"))
+                .select().apis(basePackage("app.springbootdemo.controller")) //RequestHandlerSelectors.any()
+               // .paths(PathSelectors.any())
+                .paths(regex("/api.*"))
                 .build();
 
 

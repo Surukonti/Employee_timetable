@@ -55,9 +55,9 @@
 
         <dependency>
             <groupId>org.projectlombok</groupId>
-            <artifactId>lombok-maven</artifactId>
-            <version>1.18.0.0</version>
-            <type>pom</type>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring Data -->
@@ -85,7 +85,7 @@
             <version>0.6.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter &ndash;&gt;-->
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
@@ -111,6 +111,9 @@
             <artifactId>swagger-ui</artifactId>
             <version>3.0.2</version>
         </dependency>
+
+
+
     </dependencies>
     <build>
         <plugins>
