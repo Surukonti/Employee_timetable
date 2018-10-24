@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 //@CrossOrigin(origins = "http://localhost:4200, credentials: true")
 
 @RestController
@@ -74,13 +71,6 @@ public class EmployeeController {
 	@PostMapping(value="/ill" ,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void ill(@RequestBody IllView illView) {
 		System.out.println("****************************************    " + illView.getEmpId());
-
-//		{
-//			illView.getIllFromDate();
-//			illView.getIllToDate();
-//
-//		}
-
 		employeeService.ill(IllBOMapper.from(illView));
 	}
 
@@ -142,10 +132,24 @@ public class EmployeeController {
 		employeeService.illStartTime(id);
 	}
 */
-    @GetMapping(value="/report/monthview/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/reports/monthview/{id}",  produces=MediaType.APPLICATION_JSON_VALUE)
     public List<ReportBean> employeeMonthViewReport(@PathVariable("id") long id) {
 	     return reportService.getReport(id);
 }
 
 
+	@GetMapping(value="/report/monthview/{id}/{month}/{year}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity employeeMonthViewReport(@PathVariable("id") long id, @PathVariable("month") int month, @PathVariable("year") int year) {
+
+		Map<Object,Object> map = new HashMap<>();
+		long totalcount = 0;
+		Set<TimeTableView>  resSet = employeeService.getEmployeeTimeTableForaMonth(id,month,year);
+		//return reportService.getReport(id);
+		for(TimeTableView timeTableView: resSet ){
+			totalcount+= timeTableView.getTotalDaysHours();
+		}
+		map.put(month,resSet);
+		map.put("Total Hours",totalcount);
+		return ResponseEntity.ok(map);
+	}
 }

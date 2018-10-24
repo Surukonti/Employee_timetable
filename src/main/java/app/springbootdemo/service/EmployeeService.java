@@ -1,12 +1,15 @@
 package app.springbootdemo.service;
 
 
+import app.springbootdemo.controller.mapper.TimeTableViewMapper;
+import app.springbootdemo.controller.model.TimeTableView;
 import app.springbootdemo.database.dbmodel.*;
 import app.springbootdemo.database.mapper.EmployeeMapper;
 import app.springbootdemo.database.mapper.IllMapper;
 import app.springbootdemo.database.repository.*;
 import app.springbootdemo.exceptions.StartTimeAlreadyRecordedException;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
+import app.springbootdemo.service.mapper.TimeTableBOMapper;
 import app.springbootdemo.service.model.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.*;
 
 
@@ -173,5 +173,21 @@ public class EmployeeService {
 
         employeeRepository.save(emp);
 
+    }
+
+    public Set<TimeTableView> getEmployeeTimeTableForaMonth(long id, int month, int year) {
+
+        List<TimeTable> timeTableList = timeTableRepository.getTimeTableForEmployee(id,month,year);
+        Set<TimeTableView> timeTableViewSet = new HashSet<>();
+        long hours = 0;
+        for(TimeTable timeTable: timeTableList){
+            TimeTableBO timeTableBO = TimeTableBOMapper.from(timeTable);
+            TimeTableView timeTableView = TimeTableViewMapper.from(timeTableBO);
+            hours = Duration.between(timeTableView.getBegin(),timeTableView.getEnd()).toHours();
+            timeTableView.setTotalDaysHours(hours);
+
+            timeTableViewSet.add(timeTableView);
+        }
+        return timeTableViewSet;
     }
 }

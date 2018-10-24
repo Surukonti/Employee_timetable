@@ -21,6 +21,8 @@ public class TimeTableView {
 
     private LocalDate date;
 
+    private long totalDaysHours;
+
    // private LocalDate endDate;
 
 
@@ -86,4 +88,12 @@ public class TimeTableView {
 //    public void setEndDate(LocalDate endDate) {
 //        this.endDate = endDate;
 //    }
+
+    public long getTotalDaysHours() {
+        return totalDaysHours;
+    }
+
+    public void setTotalDaysHours(long totalDaysHours) {
+        this.totalDaysHours = totalDaysHours;
+    }
 }
