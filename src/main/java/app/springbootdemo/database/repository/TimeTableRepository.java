@@ -41,4 +41,7 @@ public interface TimeTableRepository extends CrudRepository<TimeTable, Long> {
     @Query("select t from TimeTable t join t.employee e where e.id = :empId and MONTH(t.date)= :month and YEAR(t.date) = :year")
     public List<TimeTable> getTimeTableForEmployee(@Param("empId") Long empId, @Param("month") int month, @Param("year") int year);
 
+    @Query("select t from TimeTable t join t.employee e where e.id = :empId and YEAR(t.date) = :year")
+    public List<TimeTable> getTimeTableForEmployeeYearly(@Param("empId") Long empId, @Param("year") int year);
+
 }

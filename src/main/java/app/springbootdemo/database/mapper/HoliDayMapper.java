@@ -9,7 +9,7 @@ public class HoliDayMapper {
     public static HoliDay from (LocalDate date) {
         HoliDay holiDay = new HoliDay();
 //        holiDay.setStartDate(LocalDate.now());
-        holiDay.setStartDate(date);
+        holiDay.setDate(date);
       //  holiDay.setBegin_break(beginBreak);
        // holiDay.setEnd_break(endBreak);
        // holiDay.setEndDate(LocalDate.now());

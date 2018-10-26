@@ -1,6 +1,7 @@
 package app.springbootdemo.controller.model;
 
 import java.lang.String;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
@@ -21,7 +22,7 @@ public class TimeTableView {
 
     private LocalDate date;
 
-    private long totalDaysHours;
+    private double totalDayHours;
 
    // private LocalDate endDate;
 
@@ -89,11 +90,11 @@ public class TimeTableView {
 //        this.endDate = endDate;
 //    }
 
-    public long getTotalDaysHours() {
-        return totalDaysHours;
+    public double getTotalDayHours() {
+        return totalDayHours;
     }
 
-    public void setTotalDaysHours(long totalDaysHours) {
-        this.totalDaysHours = totalDaysHours;
+    public void setTotalDayHours(double totalDayHours) {
+        this.totalDayHours = totalDayHours;
     }
 }

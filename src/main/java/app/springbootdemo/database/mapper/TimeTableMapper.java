@@ -13,7 +13,7 @@ public class TimeTableMapper {
         timeTable.setEnd_break(timeTableBO.getEnd_break());
         timeTable.setEnd(timeTableBO.getEnd());
         timeTable.setId(timeTableBO.getId());
-        timeTable.setStartDate(timeTableBO.getDate());
+        timeTable.setDate(timeTableBO.getDate());
         return timeTable;
     }
 }

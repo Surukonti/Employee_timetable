@@ -21,7 +21,7 @@ public class IllMapper {
 
     public static Ill from (LocalDate date) {
         Ill ill = new Ill();
-        ill.setStartDate(date);
+        ill.setDate(date);
        // ill.setBegin_break(beginBreak);
        // ill.setEnd_break(endBreak);
         //ill.setEndDate(endDate);

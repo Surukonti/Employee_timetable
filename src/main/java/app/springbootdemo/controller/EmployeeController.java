@@ -4,7 +4,6 @@ package app.springbootdemo.controller;
 import app.springbootdemo.controller.mapper.EmployeeViewMapper;
 import app.springbootdemo.controller.model.*;
 import app.springbootdemo.database.dbmodel.Employee;
-import app.springbootdemo.database.repository.EmployeeRepository;
 import app.springbootdemo.reports.ReportBean;
 import app.springbootdemo.reports.ReportService;
 import app.springbootdemo.service.EmployeeService;
@@ -15,21 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.*;
+
 //@CrossOrigin(origins = "http://localhost:4200, credentials: true")
 
 @RestController
-
 @RequestMapping("/api")
-
 
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
-
 	@Autowired
 	ReportService reportService;
 
@@ -146,10 +141,39 @@ public class EmployeeController {
 		Set<TimeTableView>  resSet = employeeService.getEmployeeTimeTableForaMonth(id,month,year);
 		//return reportService.getReport(id);
 		for(TimeTableView timeTableView: resSet ){
-			totalcount+= timeTableView.getTotalDaysHours();
+			totalcount+= timeTableView.getTotalDayHours();
+			//totalcount = totalcount + timeTableView.getTotalDayHours();
 		}
 		map.put(month,resSet);
 		map.put("Total Hours",totalcount);
 		return ResponseEntity.ok(map);
+	}
+
+
+	@GetMapping(value="/report/yearview/{id}/{year}",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity employeeYearlyViewReport(@PathVariable("id") long id, @PathVariable("year") int year) {
+
+		Map<Object,Object> yearMap = new HashMap<>();
+		Map<Object,Object> map = new HashMap<>();
+		long totalYearCount = 0;
+		for(int i=1;i<=12;i++){
+
+			long totalcount = 0;
+			Set<TimeTableView>  resSet = employeeService.getEmployeeTimeTableForaMonth(id,i,year);
+			//return reportService.getReport(id);
+
+			if(!resSet.isEmpty()) {
+				for(TimeTableView timeTableView: resSet ){
+					totalcount+= timeTableView.getTotalDayHours();
+				}
+				map.put("Total Month Hours for Month "+ i,totalcount);
+				totalYearCount += totalcount;
+			}
+		}
+
+
+		yearMap.put(year,map);
+		yearMap.put("Total Hours",totalYearCount);
+		return ResponseEntity.ok(yearMap);
 	}
 }
