@@ -5,22 +5,16 @@ import app.springbootdemo.controller.mapper.TimeTableViewMapper;
 import app.springbootdemo.controller.model.TimeTableView;
 import app.springbootdemo.database.dbmodel.*;
 import app.springbootdemo.database.mapper.EmployeeMapper;
-import app.springbootdemo.database.mapper.IllMapper;
 import app.springbootdemo.database.repository.*;
 import app.springbootdemo.exceptions.StartTimeAlreadyRecordedException;
 import app.springbootdemo.service.mapper.EmployeeBOMapper;
 import app.springbootdemo.service.mapper.TimeTableBOMapper;
 import app.springbootdemo.service.model.*;
-import javafx.util.Duration;
-import org.apache.tomcat.jni.Local;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.*;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 
@@ -67,12 +61,11 @@ public class EmployeeService {
     }
 
     public void ill(IllBO illBO) {
-        Date illFromDate = illBO.getIllFromDate();//+ "8:00";
-        Date illToDate = illBO.getIllToDate();// + "16:00";
+      //  Date date = illBO.getIllDate();//+ "8:00";
         Employee emp = employeeRepository.findById((illBO.getEmpId())).get();
         Ill ill = new Ill();
         ill.setEmployee(emp);
-        ill.setDate(LocalDate.now());
+        ill.setDate(illBO.getIllDate());
         emp.getTimeTable().add(ill);
         illRepository.save(ill);
 

@@ -1,5 +1,6 @@
 package app.springbootdemo.service.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class IllBO {
@@ -7,10 +8,7 @@ public class IllBO {
 
     private long empId;
 
-    private Date illFromDate;
-
-    private Date illToDate;
-
+    private LocalDate illDate;
 
     public long getEmpId() {
         return empId;
@@ -20,19 +18,11 @@ public class IllBO {
         this.empId = empId;
     }
 
-    public Date getIllFromDate() {
-        return illFromDate;
+    public LocalDate getIllDate() {
+        return illDate;
     }
 
-    public void setIllFromDate(Date illFromDate) {
-        this.illFromDate = illFromDate;
-    }
-
-    public Date getIllToDate() {
-        return illToDate;
-    }
-
-    public void setIllToDate(Date illToDate) {
-        this.illToDate = illToDate;
+    public void setIllDate(LocalDate illDate) {
+        this.illDate = illDate;
     }
 }

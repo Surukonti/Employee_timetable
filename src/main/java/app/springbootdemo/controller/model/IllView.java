@@ -1,17 +1,14 @@
 package app.springbootdemo.controller.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 public class IllView {
 
-
     private long empId;
-
-    private Date illFromDate;
-
-    private Date illToDate;
+    private LocalDate illDate;
 
     public long getEmpId() {
         return empId;
@@ -21,20 +18,19 @@ public class IllView {
         this.empId = empId;
     }
 
-
-    public Date getIllFromDate() {
-        return illFromDate;
+    public LocalDate getIllDate() {
+        return illDate;
     }
 
-    public void setIllFromDate(Date illFromDate) {
-        this.illFromDate = illFromDate;
+    public void setIllDate(LocalDate illDate) {
+        this.illDate = illDate;
     }
 
-    public Date getIllToDate() {
-        return illToDate;
-    }
 
-    public void setIllToDate(Date illToDate) {
-        this.illToDate = illToDate;
-    }
+
+
+
+
+
+
 }
