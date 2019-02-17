@@ -153,27 +153,27 @@ public class EmployeeController {
 	@GetMapping(value="/report/yearview/{id}/{year}",  produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity employeeYearlyViewReport(@PathVariable("id") long id, @PathVariable("year") int year) {
 
-		Map<Object,Object> yearMap = new HashMap<>();
-		Map<Object,Object> map = new HashMap<>();
-		long totalYearCount = 0;
-		for(int i=1;i<=12;i++){
+        Map<Object, Object> yearMap = new HashMap<>();
+        Map<Object, Object> map = new HashMap<>();
+        long totalYearCount = 0;
+        for (int i = 1; i <= 12; i++) {
 
-			long totalcount = 0;
-			Set<TimeTableView>  resSet = employeeService.getEmployeeTimeTableForaMonth(id,i,year);
-			//return reportService.getReport(id);
+            long totalcount = 0;
+            Set<TimeTableView> resSet = employeeService.getEmployeeTimeTableForaMonth(id, i, year);
+            //return reportService.getReport(id);
 
-			if(!resSet.isEmpty()) {
-				for(TimeTableView timeTableView: resSet ){
-					totalcount+= timeTableView.getTotalDayHours();
-				}
-				map.put("Total Month Hours for Month "+ i,totalcount);
-				totalYearCount += totalcount;
-			}
-		}
+            if (!resSet.isEmpty()) {
+                for (TimeTableView timeTableView : resSet) {
+                    totalcount += timeTableView.getTotalDayHours();
+                }
+                map.put("Total Month Hours for Month " + i, totalcount);
+                totalYearCount += totalcount;
+            }
+        }
 
 
-		yearMap.put(year,map);
-		yearMap.put("Total Hours",totalYearCount);
-		return ResponseEntity.ok(yearMap);
-	}
+        yearMap.put(year, map);
+        yearMap.put("Total Hours", totalYearCount);
+        return ResponseEntity.ok(yearMap);
+    }
 }
